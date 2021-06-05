@@ -168,7 +168,12 @@ class Rarify_Content_Types {
 
 		$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'register_metaboxes' );		
 
-		$this->loader->add_action( 'save_post_e-consent', $plugin_admin, 'hcf_save_meta_box' );		
+		$this->loader->add_action( 'save_post_e-consent', $plugin_admin, 'survey_save_metabox' );		
+		$this->loader->add_action( 'save_post_clinical-survey', $plugin_admin, 'survey_save_metabox' );		
+		$this->loader->add_action( 'save_post_pii-survey', $plugin_admin, 'survey_save_metabox' );		
+		$this->loader->add_action( 'save_post_traffic-order', $plugin_admin, 'traffic_order_save_metabox' );		
+		$this->loader->add_action( 'save_post_survey-rule', $plugin_admin, 'survey_rule_save_metabox' );		
+
 		$this->loader->add_action( 'rest_api_init', $plugin_admin, 'register_custom_fields' );		
 
 	}

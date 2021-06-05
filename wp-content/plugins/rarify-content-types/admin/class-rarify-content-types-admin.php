@@ -102,24 +102,6 @@ class Rarify_Content_Types_Admin {
 
 
 	/**
-	 * Returns an array of options names, fields types, and default values
-	 *
-	 * @return 		array 			An array of options
-	 */
-	public static function get_options_list() {
-
-		$options = array();
-
-		$options[] = array( 'message-no-openings', 'text', 'Thank you for your interest! There are no job openings at this time.' );
-		$options[] = array( 'howtoapply', 'editor', '' );
-		$options[] = array( 'repeat-test', 'repeater', array( array( 'test1', 'text' ), array( 'test2', 'text' ), array( 'test3', 'text' ) ) );
-
-		return $options;
-
-	} // get_options_list()	
-
-
-	/**
 	 * Creates a new custom post type of "E-Consent"
 	 *
 	 * @since 	1.0.0
@@ -154,7 +136,7 @@ class Rarify_Content_Types_Admin {
 		$opts['show_in_rest']							= TRUE;
 		$opts['rest_base']								= 'e-consent';		
 		$opts['supports']								= array( 'title', 'editor', 'thumbnail', 'custom-fields' );
-		$opts['taxonomies']								= array();
+		$opts['taxonomies']								= array( 'category', 'post_tag', 'study' );
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
 		$opts['capabilities']['delete_post']			= "delete_{$cap_type}";
@@ -232,8 +214,8 @@ class Rarify_Content_Types_Admin {
 		$opts['show_ui']								= TRUE;
 		$opts['show_in_rest']							= TRUE;
 		$opts['rest_base']								= 'clinical-survey';		
-		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
-		$opts['taxonomies']								= array();
+		$opts['supports']								= array( 'title', 'editor', 'thumbnail', 'custom-fields' );
+		$opts['taxonomies']								= array( 'category', 'post_tag', 'study' );
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
 		$opts['capabilities']['delete_post']			= "delete_{$cap_type}";
@@ -312,8 +294,8 @@ class Rarify_Content_Types_Admin {
 		$opts['show_ui']								= TRUE;
 		$opts['show_in_rest']							= TRUE;
 		$opts['rest_base']								= 'pii-survey';		
-		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
-		$opts['taxonomies']								= array( 'category', 'post_tag', 'study');
+		$opts['supports']								= array( 'title', 'editor', 'thumbnail', 'custom-fields' );
+		$opts['taxonomies']								= array( 'category', 'post_tag', 'study' );
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
 		$opts['capabilities']['delete_post']			= "delete_{$cap_type}";
@@ -391,8 +373,8 @@ class Rarify_Content_Types_Admin {
 		$opts['show_ui']								= TRUE;
 		$opts['show_in_rest']							= TRUE;
 		$opts['rest_base']								= 'survey-rule';		
-		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
-		$opts['taxonomies']								= array();
+		$opts['supports']								= array( 'title', 'editor', 'thumbnail', 'custom-fields' );
+		$opts['taxonomies']								= array( 'category', 'post_tag', 'study');
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
 		$opts['capabilities']['delete_post']			= "delete_{$cap_type}";
@@ -469,8 +451,8 @@ class Rarify_Content_Types_Admin {
 		$opts['show_ui']								= TRUE;
 		$opts['show_in_rest']							= TRUE;
 		$opts['rest_base']								= 'traffic-order';		
-		$opts['supports']								= array( 'title', 'editor', 'thumbnail' );
-		$opts['taxonomies']								= array( 'category', 'post_tag', 'study');
+		$opts['supports']								= array( 'title', 'editor', 'thumbnail', 'custom-fields' );
+		$opts['taxonomies']								= array( 'category', 'post_tag', 'study' );
 
 		$opts['capabilities']['delete_others_posts']	= "delete_others_{$cap_type}s";
 		$opts['capabilities']['delete_post']			= "delete_{$cap_type}";
@@ -573,7 +555,7 @@ class Rarify_Content_Types_Admin {
 
 		$opts = apply_filters( 'rarify-content-types-taxonomy-options', $opts );
 
-		register_taxonomy( $tax_name, array('e-consent', 'clinical-survey', 'pii-survey', 'survey-rule'), $opts );
+		register_taxonomy( $tax_name, array('e-consent', 'clinical-survey', 'pii-survey', 'traffic-order'), $opts );
 
 	} // new_taxonomy_studies()
 
@@ -646,33 +628,91 @@ class Rarify_Content_Types_Admin {
 	 * @uses 	add_metabox()
 	 */	
 	public static function register_metaboxes() {
-		add_meta_box( 'hcf-1', __( 'Hello Custom Field', 'hcf' ), 'Rarify_Content_Types_Admin::hcf_display_callback', array('e-consent', 'clinical-survey') );	
+		add_meta_box( 'rsp-1', __( 'Rarify Survey Properties', 'rsp' ), 'Rarify_Content_Types_Admin::survey_display_callback', array('e-consent', 'clinical-survey', 'pii-survey') );	
+		add_meta_box( 'rtop-1', __( 'Rarify Traffic Order Properties', 'rtop' ), 'Rarify_Content_Types_Admin::traffic_order_display_callback', array('traffic-order') );	
+		add_meta_box( 'rsrp-1', __( 'Rarify Survey Rule Properties', 'rsrp' ), 'Rarify_Content_Types_Admin::survey_rule_display_callback', array('survey-rule') );	
 	} // register_metaboxes()	
 
+
+
 	/**
-	 * Meta box display callback.
+	 * Survey meta box display callback.
 	 *
 	 * @param WP_Post $post Current post object.
 	 */
-	public static function hcf_display_callback( $post ) {
-		include plugin_dir_path( __FILE__ ) . 'partials/custom-metaboxes.php';		
+	public static function survey_display_callback( $post ) {
+		include plugin_dir_path( __FILE__ ) . 'partials/custom-survey-metaboxes.php';		
 	}
 
 	/**
-	 * Save meta box content.
+	 * Traffic Order meta box display callback.
+	 *
+	 * @param WP_Post $post Current post object.
+	 */
+	public static function traffic_order_display_callback( $post ) {
+		global $wpdb;
+		
+		include plugin_dir_path( __FILE__ ) . 'partials/custom-traffic-order-metaboxes.php';		
+	}
+
+	/**
+	 * Survey Rule meta box display callback.
+	 *
+	 * @param WP_Post $post Current post object.
+	 */
+	public static function survey_rule_display_callback( $post ) {
+		include plugin_dir_path( __FILE__ ) . 'partials/custom-survey-rule-metaboxes.php';		
+	}
+
+
+	/**
+	 * Save meta box content for surveys.
 	 *
 	 * @param int $post_id Post ID
 	 */
-	public static function hcf_save_meta_box( $post_id ) {
+	public static function survey_save_metabox( $post_id ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
 		if ( $parent_id = wp_is_post_revision( $post_id ) ) {
 			$post_id = $parent_id;
 		}
 		$fields = [
-			'hcf_author',
-			'hcf_published_date',
-			'hcf_price',
-			'survey-definition'
+			'surveyID',
+			'surveyVersionNumber',
+			'surveyGroup',
+			'country',
+			'language',
+			'device',
+			// 'resultsVisible',
+			'surveyTheme',
+			'timeToComplete'
+		];
+		foreach ( $fields as $field ) {
+			if ( array_key_exists( $field, $_POST ) ) {
+				update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+			}
+		}
+
+		
+		update_post_meta( $post_id, 'resultsVisible', isset( $_POST['resultsVisible'] ) );			
+	}
+
+
+	/**
+	 * Save meta box content for traffic orders.
+	 *
+	 * @param int $post_id Post ID
+	 */
+	public static function traffic_order_save_metabox( $post_id ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+		if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+			$post_id = $parent_id;
+		}
+		$fields = [
+			'period',
+			'startDate',
+			'endDate',
+			'startDateRule',
+			'endDateRule'
 		];
 		foreach ( $fields as $field ) {
 			if ( array_key_exists( $field, $_POST ) ) {
@@ -682,14 +722,60 @@ class Rarify_Content_Types_Admin {
 	}
 
 
+	/**
+	 * Save meta box content for survey rules.
+	 *
+	 * @param int $post_id Post ID
+	 */
+	public static function survey_rule_save_metabox( $post_id ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+		if ( $parent_id = wp_is_post_revision( $post_id ) ) {
+			$post_id = $parent_id;
+		}
+		$fields = [
+			'ruleExpression'
+		];
+		foreach ( $fields as $field ) {
+			if ( array_key_exists( $field, $_POST ) ) {
+				update_post_meta( $post_id, $field, sanitize_text_field( $_POST[$field] ) );
+			}
+		}
+	}	
+
+
+
 	public static function register_custom_fields() {
-		register_rest_field(array('e-consent'), 'hcf_author', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
-		register_rest_field(array('e-consent'), 'hcf_published_date', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
-		register_rest_field(array('e-consent'), 'hcf_price', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
 
-		register_rest_field(array('e-consent'), 'survey-definition', array('get_callback' => 'Rarify_Content_Types_Admin::get_survey_definition_for'));		
+		// Surveys
 
-		register_post_meta('e-consent', 'survey-def', array('show_in_rest' => TRUE, 'single' => TRUE, 'type' => 'string'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'surveyID', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'surveyVersionNumber', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'surveyGroup', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'country', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'language', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'device', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'resultsVisible', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_boolean_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'surveyTheme', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('e-consent', 'clinical-survey', 'pii-survey'), 'timeToComplete', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_integer_value_for'));
+
+		
+		register_post_meta('e-consent', 'surveyDef', array('show_in_rest' => TRUE, 'single' => TRUE, 'type' => 'string'));
+		register_post_meta('clinical-survey', 'surveyDef', array('show_in_rest' => TRUE, 'single' => TRUE, 'type' => 'string'));
+		register_post_meta('pii-survey', 'surveyDef', array('show_in_rest' => TRUE, 'single' => TRUE, 'type' => 'string'));
+
+
+		// Traffic Orders
+		
+		register_rest_field(array('traffic-order'), 'period', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('traffic-order'), 'startDate', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('traffic-order'), 'endDate', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('traffic-order'), 'startDateRule', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('traffic-order'), 'endDateRule', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+
+
+		// Survey Rule
+		
+		register_rest_field(array('survey-rule'), 'ruleExpression', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
 	}
 
 
@@ -697,8 +783,16 @@ class Rarify_Content_Types_Admin {
 		return get_post_meta( $object['id'], $field_name, true );
 	}
 
-	public static function get_survey_definition_for($object, $field_name, $request) {		
-		return "{'content': 'Dummy survey definition'}";
-	}	
+	public static function get_metadata_boolean_value_for($object, $field_name, $request) {
+		return rest_sanitize_boolean( get_post_meta( $object['id'], $field_name, true ) );
+	}
+
+	public static function get_metadata_integer_value_for($object, $field_name, $request) {
+		return (int) get_post_meta( $object['id'], $field_name, true );
+	}
+
+	// public static function get_survey_definition_for($object, $field_name, $request) {		
+	// 	return "{'content': 'Dummy survey definition'}";
+	// }	
 
 }

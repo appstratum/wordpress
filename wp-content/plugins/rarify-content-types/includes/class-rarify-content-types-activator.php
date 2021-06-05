@@ -47,18 +47,7 @@ class Rarify_Content_Types_Activator {
 		Rarify_Content_Types_Admin::register_custom_fields();
 
 		
-		flush_rewrite_rules();
-
-		// $opts 		= array();
-		// $options 	= Rarify_Content_Types_Admin::get_options_list();
-
-		// foreach ( $options as $option ) {
-
-		// 	$opts[ $option[0] ] = $option[2];
-
-		// }
-
-		// update_option( 'rarify-content-type-options', $opts );		
+		flush_rewrite_rules();	
 
 	}
 

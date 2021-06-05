@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Rarify Content Types
  * Plugin URI:        http://wordpress.org/plugins/rarify-content-types/
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Custom Post Types & REST APIs for Wordpress integration with Rarify
  * Version:           1.0.1
  * Author:            TwoImpulse Lda
  * Author URI:        twoimpulse.com
