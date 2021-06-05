@@ -11,13 +11,6 @@
  * @package    Rarify_Content_Types
  * @subpackage Rarify_Content_Types/admin/partials
  */
-
-    // global $wpdb;
-    // $posts = $wpdb->get_results("SELECT ID, post_title FROM $wpdb->posts WHERE post_status = 'publish' AND post_type='survey-rule' ORDER BY post_title")
-
-    // echo $posts[0]->post_title;
-
-    echo "Hello!";
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
