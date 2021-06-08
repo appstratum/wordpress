@@ -453,7 +453,13 @@
 
     <p class="meta-options hcf_field">
         <label for="device">Device</label>
-        <input id="device" type="text" name="device" value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'device', true ) ); ?>">
+        <select id="device" name="device" value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'device', true ) ); ?>">
+            <option>Select a device...</option>
+            <option value="all" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'device', true ) ) == 'all' ) echo 'selected="selected"'; ?>>All</option>
+            <option value="desktop" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'device', true ) ) == 'desktop' ) echo 'selected="selected"'; ?>>Desktop</option>
+            <option value="mobile" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'device', true ) ) == 'mobile' ) echo 'selected="selected"'; ?>>Mobile</option>
+            <option value="tablet" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'device', true ) ) == 'tablet' ) echo 'selected="selected"'; ?>>Tablet</option>
+        </select>        
     </p>    
 
 
@@ -461,10 +467,18 @@
         <label for="resultsVisible">Results Visible</label>
         <input id="resultsVisible" type="checkbox" name="resultsVisible"  <?php if ( esc_attr( get_post_meta( get_the_ID(), 'resultsVisible', true ) ) == true ) echo 'checked'; ?>>
     </p>
+
+
     <p class="meta-options hcf_field">
         <label for="surveyTheme">Survey Theme</label>
-        <input id="surveyTheme" type="text" name="surveyTheme" value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'surveyTheme', true ) ); ?>">
+        <select id="surveyTheme" name="surveyTheme" value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'device', true ) ); ?>">
+            <option>Select a theme...</option>
+            <option value="RARIFY" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'surveyTheme', true ) ) == 'RARIFY' ) echo 'selected="selected"'; ?>>Rarify</option>
+            <option value="EQ-5D-5L" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'surveyTheme', true ) ) == 'EQ-5D-5L' ) echo 'selected="selected"'; ?>>EQ-5D-5L</option>
+        </select>  
     </p>
+
+
     <p class="meta-options hcf_field">
         <label for="timeToComplete">Time to Complete</label>
         <input id="timeToComplete" type="number" name="timeToComplete" value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'timeToComplete', true ) ); ?>">
