@@ -90,6 +90,9 @@ class SurveyJS_SurveyJS {
             wp_enqueue_script('wps-adm-survey-ko-js', plugins_url('libs/survey.ko.min.js', __FILE__), array('wps-adm-knockout-js'));
             wp_enqueue_style('wps-adm-surveyjseditor-css', plugins_url('libs/survey-creator.css', __FILE__) );
             wp_enqueue_script('wps-adm-surveyjseditor-js', plugins_url('libs/survey-creator.min.js', __FILE__), array('wps-adm-survey-ko-js'));
+            
+            wp_enqueue_style('wps-adm-customwidget-css'. plugins_url('libs/customwidget.css', __FILE__));
+            wp_enqueue_script('wps-adm-customwidget-js'. plugins_url('libs/customwidget.js', __FILE__));
 
             wp_enqueue_style('wps-adm-datatables-css', plugins_url('libs/datatables/dataTables.min.css', __FILE__) );
             wp_enqueue_script('wps-adm-sdatatables-js', plugins_url('libs/datatables/dataTables.min.js', __FILE__) );

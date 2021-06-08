@@ -1,0 +1,69 @@
+#healthScaleWrapper {
+  margin: 20px 0px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+#healthScaleScore {
+  width: 160px;
+  background-color: #000;
+  text-align: center;
+  padding: 10px 30px;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 25px;
+  margin: auto;
+}
+
+#slider {
+  height: 100%;
+  min-height: 400px;
+}
+
+#slider .noUi-connect {
+  background: #000;
+}
+
+#sliderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#sliderHeader,
+#sliderFooter {
+  margin: 10px 0px;
+}
+.noUi-vertical {
+  margin: 0 !important;
+}
+
+.sv_main,
+.sv_body {
+  border: 0 !important;
+}
+
+#healthScaleWrapper ul {
+  list-style: none; /* Remove default bullets */
+}
+
+#healthScaleWrapper ul li::before {
+  content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: black; /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+  margin-left: -1em; /* Also needed for space (tweak if needed) */
+}
+
+#hpValue {
+  font-size: 26px;
+  font-weight: bold;
+}
+
+#healthScaleWrapper .noUi-handle {
+  background: red;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
