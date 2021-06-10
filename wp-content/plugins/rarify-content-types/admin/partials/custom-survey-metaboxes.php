@@ -475,7 +475,6 @@
             <option>Select a theme...</option>
             <option value="RARIFY" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'surveyTheme', true ) ) == 'RARIFY' ) echo 'selected="selected"'; ?>>Rarify</option>
             <option value="EQ-5D-5L" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'surveyTheme', true ) ) == 'EQ-5D-5L' ) echo 'selected="selected"'; ?>>EQ-5D-5L</option>
-            <option value="EQ-XXX-5L" <?php if ( esc_attr( get_post_meta( get_the_ID(), 'surveyTheme', true ) ) == 'EQ-XXX-5L' ) echo 'selected="selected"'; ?>>EQ-XXX-5L</option>
         </select>  
     </p>
 
