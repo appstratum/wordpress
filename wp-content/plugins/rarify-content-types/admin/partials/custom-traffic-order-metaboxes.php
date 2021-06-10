@@ -30,8 +30,8 @@
         }
     </style>
     <p class="meta-options hcf_field">
-        <label for="period">Author</label>
-        <input id="period" type="number" name="period"  value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'period', true ) ); ?>">
+        <label for="priority">Priority</label>
+        <input id="priority" type="number" name="priority"  value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'priority', true ) ); ?>">
     </p>
     <p class="meta-options hcf_field">
         <label for="startDate">Start Date</label>
