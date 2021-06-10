@@ -1,7 +1,14 @@
-import * as noUiSlider from "nouislider/distribute/nouislider.js";
-import "./customwidget.css";
-export function init(Survey) {
-  var widget = {
+import * as noUiSlider from "./nouislider.js";
+// var noUiSlider = require('./nouislider.js')
+// import "./customwidget.css";
+console.log("Running customwidget script. noUiSlider is: ", noUiSlider);
+
+// init(Survey);
+
+// export function init(Survey) {
+  console.log("healthSliderWidget is initializing");
+
+  var healthSliderWidget = {
     //the widget name. It should be unique and written in lowcase.
     name: "healthslider",
     //the widget title. It is how it will appear on the toolbox of the SurveyJS Editor/Builder
@@ -11,6 +18,8 @@ export function init(Survey) {
     //If the widgets depends on third-party library(s) then here you may check if this library(s) is loaded
     widgetIsLoaded: function () {
       //return typeof $ == "function" && !!$.fn.select2; //return true if jQuery and select2 widget are loaded on the page
+
+      console.log("healthSliderWidget is loaded");
       return true; //we do not require anything so we just return true.
     },
     //SurveyJS library calls this function for every question to check, if it should use this widget instead of default rendering/behavior
@@ -124,5 +133,6 @@ export function init(Survey) {
   };
 
   //Register our widget in singleton custom widget collection
-  Survey.CustomWidgetCollection.Instance.addCustomWidget(widget, "customtype");
-}
+  Survey.CustomWidgetCollection.Instance.addCustomWidget(healthSliderWidget, "customtype");
+  // Survey.CustomWidgetCollection.Instance.add(healthSliderWidget, "customtype");
+// }
