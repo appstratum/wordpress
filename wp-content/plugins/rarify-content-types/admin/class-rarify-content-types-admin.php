@@ -708,7 +708,7 @@ class Rarify_Content_Types_Admin {
 			$post_id = $parent_id;
 		}
 		$fields = [
-			'period',
+			'priority',
 			'startDate',
 			'endDate',
 			'startDateRule',
@@ -766,7 +766,7 @@ class Rarify_Content_Types_Admin {
 
 		// Traffic Orders
 		
-		register_rest_field(array('traffic-order'), 'period', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('traffic-order'), 'priority', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_integer_value_for'));
 		register_rest_field(array('traffic-order'), 'startDate', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
 		register_rest_field(array('traffic-order'), 'endDate', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
 		register_rest_field(array('traffic-order'), 'startDateRule', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));

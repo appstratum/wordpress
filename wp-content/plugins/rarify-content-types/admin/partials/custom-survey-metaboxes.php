@@ -480,7 +480,7 @@
 
 
     <p class="meta-options hcf_field">
-        <label for="timeToComplete">Time to Complete</label>
+        <label for="timeToComplete">Time to Complete (minutes)</label>
         <input id="timeToComplete" type="number" name="timeToComplete" value="<?php echo esc_attr( get_post_meta( get_the_ID(), 'timeToComplete', true ) ); ?>">
     </p>       
 
