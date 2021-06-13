@@ -733,7 +733,8 @@ class Rarify_Content_Types_Admin {
 			$post_id = $parent_id;
 		}
 		$fields = [
-			'ruleExpression'
+			'ruleExpression',
+			'actionEvent'
 		];
 		foreach ( $fields as $field ) {
 			if ( array_key_exists( $field, $_POST ) ) {
@@ -776,6 +777,7 @@ class Rarify_Content_Types_Admin {
 		// Survey Rule
 		
 		register_rest_field(array('survey-rule'), 'ruleExpression', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
+		register_rest_field(array('survey-rule'), 'actionEvent', array('get_callback' => 'Rarify_Content_Types_Admin::get_metadata_value_for'));
 	}
 
 
